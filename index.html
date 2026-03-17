@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anaya's Green Day – Smart Waste Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 500;
+        }
+
+        p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: 300;
+            line-height: 1.7;
+            max-width: 65ch;
+        }
+
+        /* Layout */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        /* Hero Section */
+        .hero {
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            border-bottom: 2px solid var(--white);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin-bottom: 3rem;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            font-weight: 400;
+            margin-top: 1rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 400px;
+            margin: 2rem auto 0;
+            border: 3px solid var(--white);
+            overflow: hidden;
+            transition: var(--transition);
+            aspect-ratio: 9/16;
+        }
+
+        .hero-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255,255,255,0.1);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .intro-text {
+            margin-top: 3rem;
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            font-weight: 300;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.95;
+        }
+
+        /* Story Sections */
+        .story-section {
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+            width: 100%;
+        }
+
+        .story-image {
+            border: 2px solid var(--white);
+            overflow: hidden;
+            position: relative;
+            transition: var(--transition);
+            aspect-ratio: 9/16;
+            max-width: 400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .story-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.03) 50%);
+            background-size: 4px 4px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .story-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(255,255,255,0.15);
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .story-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .story-content h3 {
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .story-content h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--white);
+            transition: width 0.3s ease;
+        }
+
+        .story-content:hover h3::after {
+            width: 100%;
+        }
+
+        .story-number {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        /* Takeaway Section */
+        .takeaway {
+            text-align: center;
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .takeaway h2 {
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .takeaway p {
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 2px solid var(--white);
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .story-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+            }
+
+            .story-section:nth-child(even) .story-image {
+                order: 2;
+            }
+
+            .story-section:nth-child(even) .story-content {
+                order: 1;
+                text-align: right;
+            }
+
+            .story-section:nth-child(even) .story-content h3::after {
+                left: auto;
+                right: 0;
+            }
+
+            .story-image {
+                margin: 0;
+                max-width: none;
+            }
+
+            section {
+                padding: 6rem 0;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                padding: 0 3rem;
+            }
+
+            .story-grid {
+                gap: 6rem;
+            }
+        }
+
+        /* Scroll animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Selection */
+        ::selection {
+            background: var(--white);
+            color: var(--black);
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Anaya's Green Day</h1>
+                <p class="subtitle">Small Habits, Big Impact – Smart Waste Management</p>
+            </div>
+            
+            <div class="hero-image">
+                <img src="https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/thumbnail.png" alt="Anaya's Green Day - Main Thumbnail">
+            </div>
+            
+            <p class="intro-text">
+                Join Anaya on her journey through a day of conscious choices. From morning routines to evening reflections, discover how small sustainable habits can create ripples of positive change for our planet.
+            </p>
+        </div>
+    </section>
+
+    <!-- Story Section 1: Shampoo Sachets -->
+    <section class="story-section">
+        <div class="container">
+            <div class="story-grid">
+                <div class="story-image">
+                    <img src="https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/1.png" alt="From Sachets to Sustainability">
+                </div>
+                <div class="story-content">
+                    <div class="story-number">01 / Morning</div>
+                    <h3>From Sachets to Sustainability</h3>
+                    <p>Anaya notices many tiny shampoo sachets in the trash. She switches to a refillable shampoo bottle to reduce plastic waste. One simple swap eliminates hundreds of single-use plastics from entering our oceans each year.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section 2: Reusable Water Bottle -->
+    <section class="story-section">
+        <div class="container">
+            <div class="story-grid">
+                <div class="story-image">
+                    <img src="https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/2.png" alt="Hydration Without Waste">
+                </div>
+                <div class="story-content">
+                    <div class="story-number">02 / Afternoon</div>
+                    <h3>Hydration Without Waste</h3>
+                    <p>At the park, Anaya encourages her friends to use reusable water bottles instead of plastic ones. Every minute, one million plastic bottles are purchased worldwide. Anaya's choice inspires a chain reaction of conscious decisions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section 3: Compost and Biogas -->
+    <section class="story-section">
+        <div class="container">
+            <div class="story-grid">
+                <div class="story-image">
+                    <img src="https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/3.png" alt="Waste to Energy">
+                </div>
+                <div class="story-content">
+                    <div class="story-number">03 / Kitchen</div>
+                    <h3>Waste to Energy</h3>
+                    <p>In the kitchen, Anaya shows that food scraps can become compost and biogas. What we call waste is actually nutrients and energy waiting to be transformed. Her kitchen becomes a laboratory of circular living.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section 4: Waste Sorting -->
+    <section class="story-section">
+        <div class="container">
+            <div class="story-grid">
+                <div class="story-image">
+                    <img src="https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/4.png" alt="The Sorting Ritual">
+                </div>
+                <div class="story-content">
+                    <div class="story-number">04 / Evening</div>
+                    <h3>The Sorting Ritual</h3>
+                    <p>Before bedtime, Anaya sorts waste into organic, plastic, and paper bins. This mindful practice ensures recyclables stay recyclable and organic waste returns to the earth. Segregation is the foundation of smart waste management.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section 5: Clean Future City -->
+    <section class="story-section">
+        <div class="container">
+            <div class="story-grid">
+                <div class="story-image">
+                    <img src="https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/5.png" alt="A Greener Tomorrow">
+                </div>
+                <div class="story-content">
+                    <div class="story-number">05 / Vision</div>
+                    <h3>A Greener Tomorrow</h3>
+                    <p>Because of small sustainable habits, Anaya's city becomes greener and cleaner. When millions make micro-choices for the environment, we collectively architect cities where nature and humanity thrive in harmony.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Section with Image 6 -->
+    <section class="story-section">
+        <div class="container">
+            <div class="story-grid">
+                <div class="story-image">
+                    <img src="https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/6.png" alt="Community Impact">
+                </div>
+                <div class="story-content">
+                    <div class="story-number">06 / Community</div>
+                    <h3>Spreading the Message</h3>
+                    <p>Anaya shares her knowledge with neighbors and friends, creating a community of conscious citizens. True change happens when individual actions inspire collective movements. Together, we multiply our impact.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Takeaway Section -->
+    <section class="takeaway">
+        <div class="container">
+            <h2>Reduce • Reuse • Recycle</h2>
+            <p>Small daily choices can protect our planet and create a sustainable future. Every action counts. Every habit matters. Together, we build the world we want to inherit.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Smart Waste Management Awareness Project</p>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all story sections
+        document.querySelectorAll('.story-section').forEach((section) => {
+            observer.observe(section);
+        });
+
+        // Smooth reveal for hero
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.hero-content').classList.add('animate-in');
+        });
+    </script>
+  <img src="https://count.getloli.com/@bhuvanesh-m-dev?name=bhuvanesh-m-dev&theme=ai-1&padding=0&offset=0&align=top&scale=0.1&pixelated=1&darkmode=auto" width="1" height="1" alt="" style="position:absolute;visibility:hidden;" />
+</body>
+</body>
+</html>
