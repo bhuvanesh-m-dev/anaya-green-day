@@ -4,7 +4,7 @@
 
 A minimalist black & white storytelling webpage that presents a **comic-style sustainability journey** through the daily life of an 8-year-old girl named **Anaya**.
 
-🔗 Live Project: https://bhuvanesh-m-dev.github.io/anaya-green-day/
+🔗 Live Project: https://bhuvanesh-m-dev.github.io/anaya-green-day
 
 ---
 
@@ -74,7 +74,7 @@ This project is created as part of a **Smart Waste Management Awareness Initiati
 
 ## ⭐ Support
 
-If you like this project, consider giving it a ⭐ on [GitHub](https://github.com/anaya-green-day)!
+If you like this project, consider giving it a ⭐ on [GitHub](https://github.com/bhuvanesh-m-dev/anaya-green-day)!
 
 ## 📜 License
 
