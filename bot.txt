@@ -1,0 +1,26 @@
+Project Name: Anaya's Green Day – Smart Waste Management
+
+Overview:
+This project is a sustainability awareness initiative centered around a mascot named Anaya, an 8-year-old girl. The project uses a comic-style narrative to demonstrate how small daily habits can reduce waste and promote environmental responsibility.
+
+Core Concept:
+The story follows Anaya and her brother Arjun through a day, highlighting:
+- Replacing shampoo sachets with refillable bottles
+- Using reusable water bottles
+- Converting food waste into compost or biogas
+- Sorting waste before bedtime
+
+Purpose:
+To educate and inspire individuals to adopt simple, sustainable practices in daily life.
+
+Type:
+Educational Web Project, Sustainability Awareness, Storytelling UI
+
+Author:
+Bhuvanesh M
+
+License:
+MIT License
+
+Keywords:
+waste management, sustainability, recycling, composting, eco-friendly, smart city, environmental awareness
