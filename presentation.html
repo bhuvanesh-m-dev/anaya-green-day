@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Anaya's Green Day – Smart Waste Management</title>
+   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   <style>
+       * {
+           margin: 0;
+           padding: 0;
+           box-sizing: border-box;
+       }
+
+       :root {
+           --primary-bg: #000000;
+           --primary-text: #ffffff;
+           --accent-green: #4CAF50;
+           --transition-speed: 0.8s;
+       }
+
+       html {
+           scroll-behavior: smooth;
+           overflow: hidden;
+       }
+
+       body {
+           font-family: 'Space Grotesk', sans-serif;
+           background: var(--primary-bg);
+           color: var(--primary-text);
+           overflow: hidden;
+           height: 100vh;
+           width: 100vw;
+       }
+
+       /* Fullscreen Container */
+       .presentation-container {
+           height: 100vh;
+           width: 100vw;
+           overflow: hidden;
+           position: relative;
+       }
+
+       /* Slides Wrapper */
+       .slides-wrapper {
+           display: flex;
+           transition: transform var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+           height: 100%;
+           width: 100%;
+       }
+
+       /* Individual Slide */
+       .slide {
+           min-width: 100vw;
+           height: 100vh;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           padding: 4rem;
+           position: relative;
+           opacity: 0;
+           transform: scale(0.95);
+           transition: all var(--transition-speed) ease;
+       }
+
+       .slide.active {
+           opacity: 1;
+           transform: scale(1);
+       }
+
+       /* Content Styling */
+       .slide-content {
+           max-width: 1200px;
+           width: 100%;
+           text-align: center;
+           z-index: 10;
+       }
+
+       .slide-number {
+           position: absolute;
+           top: 2rem;
+           left: 2rem;
+           font-size: 0.875rem;
+           font-weight: 300;
+           letter-spacing: 0.2em;
+           opacity: 0.5;
+       }
+
+       /* Typography */
+       h1 {
+           font-size: clamp(3rem, 8vw, 6rem);
+           font-weight: 700;
+           line-height: 1.1;
+           margin-bottom: 1.5rem;
+           letter-spacing: -0.02em;
+       }
+
+       h2 {
+           font-size: clamp(2rem, 5vw, 3.5rem);
+           font-weight: 600;
+           margin-bottom: 2rem;
+           line-height: 1.2;
+       }
+
+       h3 {
+           font-size: clamp(1.5rem, 3vw, 2rem);
+           font-weight: 500;
+           margin-bottom: 1rem;
+       }
+
+       p, li {
+           font-size: clamp(1rem, 2vw, 1.25rem);
+           font-weight: 300;
+           line-height: 1.8;
+           opacity: 0.9;
+           max-width: 800px;
+           margin: 0 auto 1rem;
+       }
+
+       .subtitle {
+           font-size: clamp(1.25rem, 3vw, 1.75rem);
+           font-weight: 300;
+           opacity: 0.8;
+           margin-bottom: 3rem;
+       }
+
+       /* Team Section */
+       .team-info {
+           margin-top: 3rem;
+           padding-top: 2rem;
+           border-top: 1px solid rgba(255,255,255,0.1);
+       }
+
+       .team-name {
+           font-size: 1.5rem;
+           font-weight: 600;
+           margin-bottom: 1rem;
+           letter-spacing: 0.1em;
+           text-transform: uppercase;
+       }
+
+       .team-members {
+           display: flex;
+           flex-wrap: wrap;
+           justify-content: center;
+           gap: 2rem;
+           margin-top: 1.5rem;
+       }
+
+       .member {
+           font-size: 1rem;
+           font-weight: 400;
+           opacity: 0.8;
+           padding: 0.5rem 1rem;
+           border: 1px solid rgba(255,255,255,0.2);
+           border-radius: 50px;
+           transition: all 0.3s ease;
+       }
+
+       .member:hover {
+           background: rgba(255,255,255,0.1);
+           transform: translateY(-2px);
+       }
+
+       /* Lists */
+       .problem-list, .solution-list {
+           list-style: none;
+           text-align: left;
+           max-width: 600px;
+           margin: 2rem auto;
+       }
+
+       .problem-list li, .solution-list li {
+           padding: 1rem 0;
+           padding-left: 2rem;
+           position: relative;
+           opacity: 0;
+           transform: translateX(-20px);
+           animation: slideInLeft 0.6s forwards;
+       }
+
+       .problem-list li:nth-child(1) { animation-delay: 0.2s; }
+       .problem-list li:nth-child(2) { animation-delay: 0.4s; }
+       .problem-list li:nth-child(3) { animation-delay: 0.6s; }
+
+       .problem-list li::before {
+           content: "→";
+           position: absolute;
+           left: 0;
+           color: #ff6b6b;
+       }
+
+       .solution-list li::before {
+           content: "✓";
+           position: absolute;
+           left: 0;
+           color: var(--accent-green);
+       }
+
+       @keyframes slideInLeft {
+           to {
+               opacity: 0.9;
+               transform: translateX(0);
+           }
+       }
+
+       /* Image Styling */
+       .slide-image {
+           max-width: 100%;
+           max-height: 60vh;
+           object-fit: contain;
+           border-radius: 12px;
+           margin: 2rem 0;
+           transition: transform 0.5s ease;
+           box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+       }
+
+       .slide-image:hover {
+           transform: scale(1.05);
+       }
+
+       .image-container {
+           position: relative;
+           display: inline-block;
+           overflow: hidden;
+           border-radius: 12px;
+       }
+
+       /* Story Section */
+       .story-text {
+           font-style: italic;
+           font-size: 1.5rem;
+           opacity: 0.8;
+           margin: 2rem 0;
+           padding: 2rem;
+           border-left: 3px solid var(--accent-green);
+           text-align: left;
+       }
+
+       /* Impact Grid */
+       .impact-grid {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+           gap: 2rem;
+           margin-top: 3rem;
+       }
+
+       .impact-card {
+           padding: 2rem;
+           border: 1px solid rgba(255,255,255,0.1);
+           border-radius: 12px;
+           transition: all 0.3s ease;
+           opacity: 0;
+           transform: translateY(20px);
+           animation: fadeInUp 0.6s forwards;
+       }
+
+       .impact-card:nth-child(1) { animation-delay: 0.2s; }
+       .impact-card:nth-child(2) { animation-delay: 0.4s; }
+       .impact-card:nth-child(3) { animation-delay: 0.6s; }
+
+       @keyframes fadeInUp {
+           to {
+               opacity: 1;
+               transform: translateY(0);
+           }
+       }
+
+       .impact-card:hover {
+           background: rgba(255,255,255,0.05);
+           transform: translateY(-5px);
+           border-color: rgba(255,255,255,0.3);
+       }
+
+       .impact-icon {
+           font-size: 3rem;
+           margin-bottom: 1rem;
+       }
+
+       /* Navigation Controls */
+       .nav-controls {
+           position: fixed;
+           bottom: 2rem;
+           left: 50%;
+           transform: translateX(-50%);
+           display: flex;
+           align-items: center;
+           gap: 2rem;
+           z-index: 1000;
+           background: rgba(0,0,0,0.8);
+           padding: 1rem 2rem;
+           border-radius: 50px;
+           backdrop-filter: blur(10px);
+           border: 1px solid rgba(255,255,255,0.1);
+       }
+
+       .nav-btn {
+           background: none;
+           border: none;
+           color: white;
+           font-size: 1.5rem;
+           cursor: pointer;
+           padding: 0.5rem;
+           transition: all 0.3s ease;
+           opacity: 0.7;
+       }
+
+       .nav-btn:hover {
+           opacity: 1;
+           transform: scale(1.2);
+       }
+
+       .nav-btn:disabled {
+           opacity: 0.3;
+           cursor: not-allowed;
+       }
+
+       .slide-indicator {
+           font-size: 0.875rem;
+           font-weight: 500;
+           letter-spacing: 0.1em;
+           min-width: 60px;
+           text-align: center;
+       }
+
+       /* Fullscreen Button */
+       .fullscreen-btn {
+           position: fixed;
+           top: 2rem;
+           right: 2rem;
+           background: rgba(255,255,255,0.1);
+           border: 1px solid rgba(255,255,255,0.2);
+           color: white;
+           padding: 0.75rem;
+           border-radius: 50%;
+           cursor: pointer;
+           z-index: 1000;
+           transition: all 0.3s ease;
+           backdrop-filter: blur(10px);
+       }
+
+       .fullscreen-btn:hover {
+           background: rgba(255,255,255,0.2);
+           transform: scale(1.1);
+       }
+
+       /* Progress Bar */
+       .progress-bar {
+           position: fixed;
+           top: 0;
+           left: 0;
+           height: 3px;
+           background: var(--accent-green);
+           transition: width var(--transition-speed) ease;
+           z-index: 1000;
+       }
+
+       /* Background Pattern */
+       .bg-pattern {
+           position: fixed;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           opacity: 0.03;
+           pointer-events: none;
+           background-image: 
+               radial-gradient(circle at 25% 25%, white 1px, transparent 1px),
+               radial-gradient(circle at 75% 75%, white 1px, transparent 1px);
+           background-size: 50px 50px;
+           z-index: 1;
+       }
+
+       /* Responsive */
+       @media (max-width: 768px) {
+           .slide {
+               padding: 2rem;
+           }
+
+           .team-members {
+               flex-direction: column;
+               gap: 1rem;
+           }
+
+           .nav-controls {
+               bottom: 1rem;
+               padding: 0.75rem 1.5rem;
+           }
+
+           .fullscreen-btn {
+               top: 1rem;
+               right: 1rem;
+           }
+       }
+
+       /* Text Animations */
+       .fade-in {
+           opacity: 0;
+           transform: translateY(20px);
+           animation: fadeIn 0.8s forwards;
+       }
+
+       @keyframes fadeIn {
+           to {
+               opacity: 1;
+               transform: translateY(0);
+           }
+       }
+
+       .delay-1 { animation-delay: 0.2s; }
+       .delay-2 { animation-delay: 0.4s; }
+       .delay-3 { animation-delay: 0.6s; }
+
+       /* Thank You Special Styling */
+       .thank-you-text {
+           font-size: clamp(4rem, 12vw, 8rem);
+           font-weight: 700;
+           letter-spacing: -0.05em;
+           background: linear-gradient(135deg, #fff 0%, #4CAF50 100%);
+           -webkit-background-clip: text;
+           -webkit-text-fill-color: transparent;
+           background-clip: text;
+       }
+
+       .eco-tagline {
+           font-size: 1.5rem;
+           letter-spacing: 0.3em;
+           margin-top: 2rem;
+           opacity: 0.7;
+       }
+   </style>
+</head>
+<body>
+   <!-- Background Pattern -->
+   <div class="bg-pattern"></div>
+
+   <!-- Progress Bar -->
+   <div class="progress-bar" id="progressBar"></div>
+
+   <!-- Fullscreen Button -->
+   <button class="fullscreen-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen">
+       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+           <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+       </svg>
+   </button>
+
+   <!-- Presentation Container -->
+   <div class="presentation-container">
+       <div class="slides-wrapper" id="slidesWrapper">
+           
+           <!-- Slide 1: Title Slide -->
+           <section class="slide active" data-slide="1">
+               <span class="slide-number">01</span>
+               <div class="slide-content">
+                   <h1 class="fade-in">Anaya's Green Day</h1>
+                   <p class="subtitle fade-in delay-1">Small Habits, Big Impact – Smart Waste Management</p>
+                   
+                   <div class="image-container fade-in delay-2">
+                       <img src="https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/thumbnail.png" 
+                            alt="Anaya's Green Day Thumbnail" 
+                            class="slide-image">
+                   </div>
+
+                   <div class="team-info fade-in delay-3">
+                       <div class="team-name">Team Destroyer</div>
+                       <div class="team-members">
+                           <span class="member">Bhuvanesh M</span>
+                           <span class="member">Jemil Sheron S B</span>
+                           <span class="member">Mohamed Mohideen Saajid S</span>
+                           <span class="member">Mohan Kumar S</span>
+                       </div>
+                   </div>
+               </div>
+           </section>
+
+           <!-- Slide 2: Problem Statement -->
+           <section class="slide" data-slide="2">
+               <span class="slide-number">02</span>
+               <div class="slide-content">
+                   <h2 class="fade-in">The Problem</h2>
+                   <ul class="problem-list">
+                       <li>Plastic waste is increasing rapidly across the globe</li>
+                       <li>Daily habits contribute significantly to environmental pollution</li>
+                       <li>Lack of awareness about the impact of small actions</li>
+                   </ul>
+                   <p class="fade-in delay-3" style="margin-top: 2rem; font-style: italic;">
+                       Every piece of plastic ever created still exists somewhere on our planet.
+                   </p>
+               </div>
+           </section>
+
+           <!-- Slide 3: Concept (Story Introduction) -->
+           <section class="slide" data-slide="3">
+               <span class="slide-number">03</span>
+               <div class="slide-content">
+                   <h2 class="fade-in">Meet Anaya</h2>
+                   <div class="image-container fade-in delay-1">
+                       <img src="https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/1.png" 
+                            alt="Anaya - 8 year old girl" 
+                            class="slide-image">
+                   </div>
+                   <div class="story-text fade-in delay-2">
+                       Anaya is an 8-year-old girl who discovers how small changes in her daily routine can create a massive positive impact on the environment.
+                   </div>
+               </div>
+           </section>
+
+           <!-- Slide 4: Shampoo Sachets Problem -->
+           <section class="slide" data-slide="4">
+               <span class="slide-number">04</span>
+               <div class="slide-content">
+                   <h2 class="fade-in">The Shampoo Sachet Problem</h2>
+                   <div class="image-container fade-in delay-1">
+                       <img src="https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/2.png" 
+                            alt="Shampoo sachets problem" 
+                            class="slide-image">
+                   </div>
+                   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; text-align: left;">
+                       <div class="fade-in delay-2">
+                           <h3 style="color: #ff6b6b;">❌ Problem</h3>
+                           <p>Single-use plastic sachets contribute to massive plastic waste</p>
+                       </div>
+                       <div class="fade-in delay-3">
+                           <h3 style="color: var(--accent-green);">✓ Solution</h3>
+                           <p>Switch to refillable shampoo bottles</p>
+                       </div>
+                   </div>
+               </div>
+           </section>
+
+           <!-- Slide 5: Reusable Water Bottle -->
+           <section class="slide" data-slide="5">
+               <span class="slide-number">05</span>
+               <div class="slide-content">
+                   <h2 class="fade-in">Reusable Water Bottles</h2>
+                   <div class="image-container fade-in delay-1">
+                       <img src="https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/3.png" 
+                            alt="Reusable water bottle" 
+                            class="slide-image">
+                   </div>
+                   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; text-align: left;">
+                       <div class="fade-in delay-2">
+                           <h3 style="color: #ff6b6b;">❌ Problem</h3>
+                           <p>Plastic bottles take 450+ years to decompose</p>
+                       </div>
+                       <div class="fade-in delay-3">
+                           <h3 style="color: var(--accent-green);">✓ Solution</h3>
+                           <p>Carry reusable bottles everywhere</p>
+                       </div>
+                   </div>
+               </div>
+           </section>
+
+           <!-- Slide 6: Compost / Biogas -->
+           <section class="slide" data-slide="6">
+               <span class="slide-number">06</span>
+               <div class="slide-content">
+                   <h2 class="fade-in">Compost & Biogas</h2>
+                   <div class="image-container fade-in delay-1">
+                       <img src="https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/4.png" 
+                            alt="Compost and biogas" 
+                            class="slide-image">
+                   </div>
+                   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; text-align: left;">
+                       <div class="fade-in delay-2">
+                           <h3 style="color: #ff6b6b;">❌ Problem</h3>
+                           <p>Food waste in landfills produces harmful methane</p>
+                       </div>
+                       <div class="fade-in delay-3">
+                           <h3 style="color: var(--accent-green);">✓ Solution</h3>
+                           <p>Composting creates nutrient-rich soil & biogas energy</p>
+                       </div>
+                   </div>
+               </div>
+           </section>
+
+           <!-- Slide 7: Waste Segregation -->
+           <section class="slide" data-slide="7">
+               <span class="slide-number">07</span>
+               <div class="slide-content">
+                   <h2 class="fade-in">Waste Segregation</h2>
+                   <div class="image-container fade-in delay-1">
+                       <img src="https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/5.png" 
+                            alt="Waste segregation" 
+                            class="slide-image">
+                   </div>
+                   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; text-align: left;">
+                       <div class="fade-in delay-2">
+                           <h3 style="color: #ff6b6b;">❌ Problem</h3>
+                           <p>Mixed waste reduces recycling efficiency</p>
+                       </div>
+                       <div class="fade-in delay-3">
+                           <h3 style="color: var(--accent-green);">✓ Solution</h3>
+                           <p>Sort into organic, plastic, and paper categories</p>
+                       </div>
+                   </div>
+               </div>
+           </section>
+
+           <!-- Slide 8: Impact / Future Vision -->
+           <section class="slide" data-slide="8">
+               <span class="slide-number">08</span>
+               <div class="slide-content">
+                   <h2 class="fade-in">Our Vision for Tomorrow</h2>
+                   <div class="image-container fade-in delay-1">
+                       <img src="https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/6.png" 
+                            alt="Future vision" 
+                            class="slide-image">
+                   </div>
+                   <div class="impact-grid">
+                       <div class="impact-card">
+                           <div class="impact-icon">🏙️</div>
+                           <h3>Cleaner Cities</h3>
+                           <p>Reduced landfill waste and pollution-free urban spaces</p>
+                       </div>
+                       <div class="impact-card">
+                           <div class="impact-icon">🌱</div>
+                           <h3>Reduced Pollution</h3>
+                           <p>Significant decrease in plastic and carbon footprint</p>
+                       </div>
+                       <div class="impact-card">
+                           <div class="impact-icon">♻️</div>
+                           <h3>Sustainable Future</h3>
+                           <p>Circular economy for generations to come</p>
+                       </div>
+                   </div>
+               </div>
+           </section>
+
+           <!-- Slide 9: Conclusion -->
+           <section class="slide" data-slide="9">
+               <span class="slide-number">09</span>
+               <div class="slide-content">
+                   <h2 class="fade-in">The Power of Small Habits</h2>
+                   <p class="subtitle fade-in delay-1">Every small action compounds into massive change</p>
+                   
+                   <div style="margin: 3rem 0; font-size: 1.5rem; line-height: 2;" class="fade-in delay-2">
+                       <p>🌱 One reusable bottle saves 167 plastic bottles per year</p>
+                       <p>🌱 One compost bin reduces household waste by 30%</p>
+                       <p>🌱 One child's awareness inspires an entire community</p>
+                   </div>
+
+                   <h3 class="fade-in delay-3" style="margin-top: 3rem; color: var(--accent-green);">
+                       Start today. Be the change.
+                   </h3>
+               </div>
+           </section>
+
+           <!-- Slide 10: Thank You -->
+           <section class="slide" data-slide="10">
+               <span class="slide-number">10</span>
+               <div class="slide-content">
+                   <h1 class="thank-you-text fade-in">Thank You</h1>
+                   <p class="eco-tagline fade-in delay-1">Reduce • Reuse • Recycle</p>
+                   
+                   <div class="team-info fade-in delay-2" style="margin-top: 4rem;">
+                       <div class="team-name">Team Destroyer</div>
+                       <div class="team-members">
+                           <span class="member">Bhuvanesh M</span>
+                           <span class="member">Jemil Sheron S B</span>
+                           <span class="member">Mohamed Mohideen Saajid S</span>
+                           <span class="member">Mohan Kumar S</span>
+                       </div>
+                   </div>
+               </div>
+           </section>
+
+       </div>
+   </div>
+
+   <!-- Navigation Controls -->
+   <div class="nav-controls">
+       <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" title="Previous Slide">
+           ←
+       </button>
+       <span class="slide-indicator" id="slideIndicator">1 / 10</span>
+       <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)" title="Next Slide">
+           →
+       </button>
+   </div>
+
+   <script>
+       // State Management
+       let currentSlide = 1;
+       const totalSlides = 10;
+       let isScrolling = false;
+
+       // DOM Elements
+       const slidesWrapper = document.getElementById('slidesWrapper');
+       const progressBar = document.getElementById('progressBar');
+       const slideIndicator = document.getElementById('slideIndicator');
+       const prevBtn = document.getElementById('prevBtn');
+       const nextBtn = document.getElementById('nextBtn');
+
+       // Initialize
+       function init() {
+           updateSlide();
+           setupEventListeners();
+       }
+
+       // Change Slide
+       function changeSlide(direction) {
+           if (isScrolling) return;
+           
+           const newSlide = currentSlide + direction;
+           if (newSlide >= 1 && newSlide <= totalSlides) {
+               currentSlide = newSlide;
+               updateSlide();
+           }
+       }
+
+       // Go to Specific Slide
+       function goToSlide(slideNum) {
+           if (slideNum >= 1 && slideNum <= totalSlides) {
+               currentSlide = slideNum;
+               updateSlide();
+           }
+       }
+
+       // Update Slide Display
+       function updateSlide() {
+           isScrolling = true;
+           
+           // Move slides wrapper
+           slidesWrapper.style.transform = `translateX(-${(currentSlide - 1) * 100}vw)`;
+           
+           // Update active classes
+           document.querySelectorAll('.slide').forEach((slide, index) => {
+               if (index + 1 === currentSlide) {
+                   slide.classList.add('active');
+               } else {
+                   slide.classList.remove('active');
+               }
+           });
+
+           // Update progress bar
+           const progress = (currentSlide / totalSlides) * 100;
+           progressBar.style.width = `${progress}%`;
+
+           // Update indicator
+           slideIndicator.textContent = `${currentSlide} / ${totalSlides}`;
+
+           // Update button states
+           prevBtn.disabled = currentSlide === 1;
+           nextBtn.disabled = currentSlide === totalSlides;
+
+           // Reset scroll lock after animation
+           setTimeout(() => {
+               isScrolling = false;
+           }, 800);
+       }
+
+       // Event Listeners
+       function setupEventListeners() {
+           // Keyboard Navigation
+           document.addEventListener('keydown', (e) => {
+               if (e.key === 'ArrowLeft') changeSlide(-1);
+               if (e.key === 'ArrowRight') changeSlide(1);
+               if (e.key === 'Home') goToSlide(1);
+               if (e.key === 'End') goToSlide(totalSlides);
+           });
+
+           // Touch/Swipe Support
+           let touchStartX = 0;
+           let touchEndX = 0;
+
+           document.addEventListener('touchstart', (e) => {
+               touchStartX = e.changedTouches[0].screenX;
+           });
+
+           document.addEventListener('touchend', (e) => {
+               touchEndX = e.changedTouches[0].screenX;
+               handleSwipe();
+           });
+
+           function handleSwipe() {
+               const swipeThreshold = 50;
+               const diff = touchStartX - touchEndX;
+               
+               if (Math.abs(diff) > swipeThreshold) {
+                   if (diff > 0) changeSlide(1); // Swipe left, go next
+                   else changeSlide(-1); // Swipe right, go prev
+               }
+           }
+
+           // Mouse Wheel Navigation
+           let wheelTimeout;
+           document.addEventListener('wheel', (e) => {
+               if (wheelTimeout) return;
+               
+               wheelTimeout = setTimeout(() => {
+                   if (e.deltaY > 0) changeSlide(1);
+                   else changeSlide(-1);
+                   wheelTimeout = null;
+               }, 100);
+           });
+
+           // Prevent default scroll behavior
+           document.addEventListener('wheel', (e) => {
+               e.preventDefault();
+           }, { passive: false });
+       }
+
+       // Fullscreen Toggle
+       function toggleFullscreen() {
+           if (!document.fullscreenElement) {
+               document.documentElement.requestFullscreen().catch((e) => {
+                   console.log('Fullscreen not supported');
+               });
+           } else {
+               document.exitFullscreen();
+           }
+       }
+
+       // Start presentation
+       init();
+
+       // Preload images for smooth transitions
+       window.addEventListener('load', () => {
+           const images = [
+               'https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/thumbnail.png',
+               'https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/1.png',
+               'https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/2.png',
+               'https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/3.png',
+               'https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/4.png',
+               'https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/5.png',
+               'https://raw.githubusercontent.com/bhuvanesh-m-dev/anaya-green-day/refs/heads/main/img/6.png'
+           ];
+
+           images.forEach(src => {
+               const img = new Image();
+               img.src = src;
+           });
+       });
+   </script>
+</body>
+</html>
